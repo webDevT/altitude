@@ -235,14 +235,14 @@
 				Contact US
 			</h2>
 
-			<form action="" class="contact-form animate__animated wow animate__fadeInUp">
-				<input type="text" placeholder="Name ">
-				<input type="text" placeholder="Email ">
-				<input type="text" placeholder="Subject">
-				<textarea name="" id="" cols="30" rows="10" placeholder="Your message"></textarea>
-				<input type="submit" class="submit-button" value="Contact Us">
-
+			<form id="form" class="contact-form animate__animated wow animate__fadeInUp">
+				<input type="text" name="name" placeholder="Full Name" required class="input input-name" />
+				<input type="text" name="email" placeholder="Email Address" required class="input input-email"/>
+				<textarea name="msg" id="" cols="30" rows="10" class="textarea" placeholder="Your Message"></textarea>
+				<button class="submit-button button">SEND MESSAGE</button>
 			</form>
+
+			
 		</div>
 	</section>
 
@@ -293,6 +293,25 @@ https://cdn.jsdelivr.net/npm/wowjs@1.1.3/dist/wow.min.js
 "></script>
 <script>
 new WOW().init();
+</script>
+<script src="js/main.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+	
+	$("#form").submit(function() {
+		$.ajax({
+			type: "POST",
+			url: "mail.php",
+			data: $(this).serialize()
+		}).done(function() {
+			$(this).find("input").val("");
+			alert("Thank you! Message successfully sent!");
+			$("#form").trigger("reset");
+		});
+		return false;
+	});
+	
+	});
 </script>
 </body>
 </html>
